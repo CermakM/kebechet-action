@@ -1,24 +1,22 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
+name: 'Kebechet'
+description: 'Action to trigger Kebechet repository manager.'
+author: 'Marek Cermak'
+
 inputs: 
-  configuration_path:
-    description: 'Path to the Kebechet configuration file'
-    default: './thoth.yaml'
+  token:
+    description: 'Kebechet GitHub API token'
     required: true
-  verbose:
-    description: 'Whether Kebechet should run in verbose mode'
-    default: '1'
-    required: false
+  config:
+    description: 'Path to the Kebechet configuration file'
+    default: '.thoth.yaml'
+    required: true
 runs:
   using: 'docker'
-  image: 'kebechet/Dockerfile'
+  image: 'Dockerfile'
+  args:
+    - '${{ inputs.config }}'
   env:
-    # Default configuration
-    KEBECHET_REPO_URL: 'https://{{ GITHUB_REPOSITORY }}/{{ GITHUB_REF }}'
-    KEBECHET_SUBCOMMAND: 'run'
     # Credentials
-    KEBECHET_TOKEN: '{{ secrets.GITHUB_TOKEN }}'
+    KEBECHET_TOKEN: '${{ inputs.token }}'
     # Additional configuration
-    KEBECHET_CONFIGURATION_PATH: '{{ inputs.configuration_path }}'
-    KEBECHET_VERBOSE: '{{ inputs.verbose }}'
+    KEBECHET_VERBOSE: '1'
