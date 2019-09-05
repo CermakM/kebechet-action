@@ -1,5 +1,18 @@
-# Container Action Template
+# kebechet-action
 
-To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+GitHub Action to trigger Kebechet Automation bot for the current repository
 
-For info on how to build your first Container action, see the [toolkit docs folder](https://github.com/actions/toolkit/blob/master/docs/container-action.md).
+Kebechet
+--------
+
+    I'm Kebechet, goddess of freshness. I will keep your sources and dependencies fresh and up-to-date.
+
+Kebechet is a SourceOps bot that automates updating dependencies of your project. Currently, it supports managing and updating Python projects based on [pipenv](https://docs.pipenv.org/) files (`Pipfile` and `Pipfile.lock`) or `requirements.txt`/`requirements.in` files (see [pip-tools](https://pypi.org/project/pip-tools/) - Kebechet is a replacement for it)
+
+
+For more information about Kebchet see the [README](/kebechet/README.rst).
+
+Notes
+=====
+
+To issue an update to Git repository, Kebechet creates branches in the provided repository.

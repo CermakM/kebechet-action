@@ -2,11 +2,23 @@ name: 'Container Action Template'
 description: 'Get started with Container actions'
 author: 'GitHub'
 inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+  configuration_path:
+    description: 'Path to the Kebechet configuration file'
+    default: './thoth.yaml'
+    required: true
+  verbose:
+    description: 'Whether Kebechet should run in verbose mode'
+    default: '1'
+    required: false
 runs:
   using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.myInput }}
+  image: 'kebechet/Dockerfile'
+  env:
+    # Default configuration
+    KEBECHET_REPO_URL: 'https://{{ GITHUB_REPOSITORY }}/{{ GITHUB_REF }}'
+    KEBECHET_SUBCOMMAND: 'run'
+    # Credentials
+    KEBECHET_TOKEN: '{{ secrets.GITHUB_TOKEN }}'
+    # Additional configuration
+    KEBECHET_CONFIGURATION_PATH: '{{ inputs.configuration_path }}'
+    KEBECHET_VERBOSE: '{{ inputs.verbose }}'

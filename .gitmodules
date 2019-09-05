@@ -1,0 +1,3 @@
+[submodule "kebechet"]
+	path = kebechet
+	url = https://github.com/thoth-station/kebechet
