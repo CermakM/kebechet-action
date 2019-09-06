@@ -2,7 +2,9 @@
 
 set -e
 
-SSH_HOME_DIRECTORY=/root
+export KEBECHET_REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
+export KEBECHET_TOKEN="${GITHUB_TOKEN}"
+export SSH_HOME_DIRECTORY=/root
 
 decode() {
     local decoded="$(echo \"$1\" | base64 -i -w 0 --decode)"
