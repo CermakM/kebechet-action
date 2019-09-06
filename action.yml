@@ -6,6 +6,9 @@ inputs:
   token:
     description: 'Kebechet GitHub API token'
     required: true
+  ssh_key:
+    description: 'Kebechet GitHub SSH private token'
+    required: true
   config:
     description: 'Path to the Kebechet configuration file'
     default: '.thoth.yaml'
@@ -18,5 +21,7 @@ runs:
   env:
     # Credentials
     KEBECHET_TOKEN: '${{ inputs.token }}'
+    KEBECHET_SSH_PRIVATE_KEY: |
+      ${{ inputs.ssh_key }}
     # Additional configuration
     KEBECHET_VERBOSE: '1'
