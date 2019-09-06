@@ -1,15 +1,33 @@
-#!/bin/sh -l
+#!/bin/bash -l
 
-# The git_ssh_command helps the server by pass the Host key checking while connecting to github.
-export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+set -e
 
-# Set the SSH secret
-mkdir -p $HOME/.ssh/
-echo "${KEBECHET_SSH_PRIVATE_KEY}" | base64 --decode > $HOME/.ssh/id_rsa && chmod 400 $HOME/.ssh/id_rsa
+SSH_HOME_DIRECTORY=/root
 
-# Test permissions
-ssh -vT git@github.com
+decode() {
+    local decoded="$(echo \"$1\" | base64 -i -w 0 --decode)"
+    if [ $? -ne 0 ] ; then
+        exit 1;
+    fi
+    >&1 echo "$decoded"
+}
 
-# Run Kebechet
-echo "\nRunning Kebechet ...\n"
-kebechet run "${GITHUB_WORKSPACE}/$@"
+prep() {
+    # Set the SSH secret
+    mkdir -p ${SSH_HOME_DIRECTORY}/.ssh/
+    decode "${KEBECHET_SSH_PRIVATE_KEY}" > ${SSH_HOME_DIRECTORY}/.ssh/id_rsa && chmod 0400 ${SSH_HOME_DIRECTORY}/.ssh/id_rsa
+
+    # Test permissions
+    # Ignore exit code as exit status 1 is returned when no terminal is present, serves for debugging purposes
+    >&2 ssh -o "StrictHostKeyChecking=no" -vT git@github.com || true
+}
+
+main() {
+    prep || exit 1
+
+    # Run Kebechet
+    echo "\nRunning Kebechet ...\n"
+    GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' kebechet run "${GITHUB_WORKSPACE}/$@"
+}
+
+main "$@"

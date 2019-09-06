@@ -3,9 +3,6 @@ description: 'Action to trigger Kebechet repository manager.'
 author: 'Marek Cermak'
 
 inputs: 
-  token:
-    description: 'Kebechet GitHub API token'
-    required: true
   ssh_key:
     description: 'Kebechet GitHub SSH private key (base64 encoded)'
     required: true
@@ -20,7 +17,6 @@ runs:
     - '${{ inputs.config }}'
   env:
     # Credentials
-    KEBECHET_TOKEN: '${{ inputs.token }}'
     KEBECHET_SSH_PRIVATE_KEY: '${{ inputs.ssh_key }}'
     # Additional configuration
     KEBECHET_VERBOSE: '1'

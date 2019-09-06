@@ -1,8 +1,9 @@
 FROM python:3.6
 
-ENV KEBECHET_REPO_URL = 'https://github.com/${GITHUB_REPOSITORY}' \
-    KEBECHET_VERBOSE  = 1 \
-    PIPENV_NOSPIN     = 1
+ENV KEBECHET_REPO_URL='https://github.com/${GITHUB_REPOSITORY}' \
+    KEBECHET_TOKEN='${GITHUB_TOKEN}' \
+    KEBECHET_VERBOSE=1 \
+    PIPENV_NOSPIN=1
 
 COPY LICENSE README.md /
 COPY entrypoint.sh /entrypoint.sh
