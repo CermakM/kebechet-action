@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-set -e
+set -euo pipefail
 
 export KEBECHET_REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
 export KEBECHET_TOKEN="${GITHUB_TOKEN}"

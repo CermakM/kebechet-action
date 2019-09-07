@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM registry.access.redhat.com/ubi8/python-36
 
 LABEL "com.github.actions.name"="kebechet"
 LABEL "com.github.actions.description"="Action to trigger Kebechet repository manager."
@@ -9,11 +9,13 @@ LABEL "repository"="http://github.com/cermakm/kebechet-action"
 LABEL "homepage"="http://github.com/cermakm/kebechet-action"
 LABEL "maintainer"="Marek Cermak <macermak@redhat.com>"
 
-ENV  PIPENV_NOSPIN=1
+ENV USER=kebechet \
+    PIPENV_NOSPIN=1
 
 COPY LICENSE README.md /
 COPY entrypoint.sh /entrypoint.sh
 
 RUN pip install kebechet
 
+USER root
 ENTRYPOINT [ "/entrypoint.sh" ]

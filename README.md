@@ -12,6 +12,12 @@ Kebechet is a SourceOps bot that automates updating dependencies of your project
 
 For more information about Kebchet see the [README](/kebechet/README.rst).
 
+SETUP
+=====
+
+1) Add the Kebechet action to your workflow
+
+
 Notes
 =====
 
