@@ -17,13 +17,15 @@ For more information about Kebchet see the [README](/kebechet/README.rst).
 SETUP
 =====
 
-### 1) Create the SSH key (if applicable)
+#### Create the SSH key (if applicable)
 
 If you already have an SSH key associated with your GitHub account and you want to use it, you can skip this step.
 
 See the "[Generating a new SSH key](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)" for more info.
 
-### 2) Create the `KEBECHET_SSH_PRIVATE_KEY` secret
+<br>
+
+#### Create the `KEBECHET_SSH_PRIVATE_KEY` secret
 
 **IMPORTANT:** The secret has to be **base64** encoded!
 
@@ -37,9 +39,9 @@ cat ~/.ssh/kebechet_rsa | base64
 And set the base64 encoded key to the `KEBECHET_SSH_PRIVATE_KEY` secret. See "[Creating and Using Secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)" for more info.
 
 
-> In the future, it Kebechet might generate the SSH key *for* you, but at the moment it is not the case.
+<br>
 
-### 3) Add the Kebechet Action to a workflow
+#### Add the Kebechet Action to a workflow
 
 Example:
 
@@ -66,8 +68,6 @@ jobs:
         # see https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent for more info)
         ssh_key: '${{ secrets.KEBECHET_SSH_PRIVATE_KEY }}'
 ```
-
-OR
 
 If you want to make Kebechet Action a step in your Main workflow, you can do it as such:
 
