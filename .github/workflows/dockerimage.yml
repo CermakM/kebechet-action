@@ -1,0 +1,26 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+    - docker
+    - stable
+    - v*
+  
+
+jobs:
+
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run:  docker build . --file build/Dockerfile --tag thothstation/kebechet-github-action:latest
+      
+    - name: Login to the DockerHub
+      run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+    - name: Push the Docker image to the registry
+      run:  docker push thothstation/kebechet-github-action:latest
