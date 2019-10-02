@@ -3,10 +3,8 @@ name: Docker Image CI
 on:
   push:
     branches:
-    - docker
-    - stable
+    - latest
     - v*
-  
 
 jobs:
 
@@ -17,10 +15,22 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run:  docker build . --file build/Dockerfile --tag thothstation/kebechet-github-action:latest
+      run: |
+        IMAGE_TAG=${GITHUB_REF##*/}
+        if [ "$IMAGE_TAG" == "master" ]; then
+          IMAGE_TAG='latest'
+        fi
+
+        docker build . --file build/Dockerfile --tag thothstation/kebechet-github-action:${IMAGE_TAG}
       
     - name: Login to the DockerHub
       run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
     - name: Push the Docker image to the registry
-      run:  docker push thothstation/kebechet-github-action:latest
+      run: |
+        IMAGE_TAG=${GITHUB_REF##*/}
+        if [ "$IMAGE_TAG" == "master" ]; then
+          IMAGE_TAG='latest'
+        fi
+
+        docker push thothstation/kebechet-github-action:${IMAGE_TAG}

@@ -15,7 +15,7 @@ ENV USER=kebechet \
 COPY LICENSE README.md /
 COPY entrypoint.sh /entrypoint.sh
 
-RUN pip install kebechet
+RUN pip install "git+https://github.com/thoth-station/kebechet@${GITHUB_REF##*/}"
 
 USER root
 ENTRYPOINT [ "/entrypoint.sh" ]
