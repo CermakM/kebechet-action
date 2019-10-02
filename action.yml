@@ -10,13 +10,9 @@ inputs:
     description: 'Path to the Kebechet configuration file'
     default: '.thoth.yaml'
     required: true
-  ref:
-    description: Git Hub ref to be used as the image tag. Use 'latest' instead of 'master'.
-    default: 'latest'
-    required: true
 runs:
   using: 'docker'
-  image: 'docker://thothstation/kebechet-github-action:${{ inputs.ref }}'
+  image: 'docker://thothstation/kebechet-github-action:latest'
   args:
     - '${{ inputs.config }}'
   env:
